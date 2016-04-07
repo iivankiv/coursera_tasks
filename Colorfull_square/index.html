@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<meta http-equiv="refresh" content="1">
+<title>Document</title>
+
+<style>
+   div {
+     position: absolute;      
+   }
+</style>
+
+<script>
+  function showPattern() {
+    var topPosition = 25,
+      leftPosition = 25;
+    var width = 500,
+      height = 500;
+    var colorList = ["red", "orange", "blue", "white", "indigo", "yellow", "green"];
+    var the_Body = document.getElementById("theBody");
+
+    while (width > 50) {
+      var thisDiv = document.createElement("div");
+      var randomColor = Math.random() * 7;
+      randomColor = Math.floor(randomColor);
+      thisDiv.style.width = width + "px";
+      thisDiv.style.height = height + "px";
+      thisDiv.style.top = topPosition + "px";
+      thisDiv.style.left = leftPosition + "px";
+      thisDiv.style.backgroundColor = colorList[randomColor];
+      the_Body.appendChild(thisDiv);
+      topPosition += 10;
+      leftPosition += 10;
+      width -= 20;
+      height -= 20;
+    }
+  }
+
+</script>
+
+<body id="theBody" onload="showPattern()">
+
+</body>

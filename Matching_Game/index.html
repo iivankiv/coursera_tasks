@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<title>Document</title>
+<style>
+p {
+  font-size: 0.8em;
+}
+
+div {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+}
+
+#rightSide {
+  left: 500px;
+  border-left: 3px solid gray;
+}
+
+img {
+  position: absolute;
+}
+</style>
+
+<script>
+  var numberOfFaces = 5;
+  var counter = 0;
+
+  function generateFaces() {
+    var theLeftSide = document.getElementById("leftSide");
+    var theRightSide = document.getElementById("rightSide");
+    var theBody = document.getElementsByTagName("body")[0];
+
+    for (var i = 0; i < numberOfFaces; i++) {
+      var theImage = document.createElement("img");
+      theImage.src = "http://home.cse.ust.hk/~rossiter/mooc/matching_game/smile.png";
+      var xPosition = Math.floor(Math.random() * 400);
+      var yPosition = Math.floor(Math.random() * 400);
+      theImage.style.top = xPosition + "px";
+      theImage.style.left = yPosition + "px";
+      theLeftSide.appendChild(theImage);
+    }
+
+    var leftSideImages = theLeftSide.cloneNode(true);
+    leftSideImages.removeChild(leftSideImages.lastChild);
+    theRightSide.appendChild(leftSideImages);
+
+    theLeftSide.lastChild.onclick = function nextLevel(event) {
+      event.stopPropagation();
+      deleteNodes();
+      numberOfFaces += 5;
+      counter += 100;
+      generateFaces();
+    }
+
+    theBody.onclick = function gameOver() {
+      alert("Game Over! Your score:  " + counter);
+      theBody.onclick = null;
+      theLeftSide.lastChild.onclick = null;
+    }
+
+    function deleteNodes() {
+      while (theLeftSide.firstChild)
+        theLeftSide.removeChild(theLeftSide.firstChild);
+
+      while (theRightSide.firstChild)
+        theRightSide.removeChild(theRightSide.firstChild);
+    }
+  }
+
+</script>
+
+<body id="theBody" onload="generateFaces()">
+  <h3><b>Matching Game</b></h3>
+  <p>Click on the extra smiling face on the lef.</p>
+  <div id="leftSide"></div>
+  <div id="rightSide"></div>
+
+
+
+</body>
